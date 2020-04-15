@@ -168,6 +168,7 @@ data_processed.impute_na('age',exclude='race:B')
 # bucket age into classes (less than 15, 16 to 25, and 26 to 45; over 45 is the omitted class)
 data_processed['child'] = data_processed['age'].apply(lambda x: x <= 15).astype(int)
 data_processed['young adult'] = data_processed['age'].apply(lambda x: (x > 15) & (x <= 25)).astype(int)
+data_processed['adult'] = data_processed['age'].apply(lambda x: (x > 25) & (x <= 45)).astype(int)
 
 # bucket state demographic info (more than 75% white, and 50% to 75% white; less than 50% white is the omitted class)
 data_processed['state:almost_all_white'] = data_processed['state_percent_white'].apply(lambda x: x > 75).astype(int)
@@ -196,40 +197,41 @@ The logistic model offers estimated coefficient interpretations. The interpretat
 
 ```
 Optimization terminated successfully.
-         Current function value: 0.596876
-         Iterations 5
+         Current function value: 0.586120
+         Iterations 6
                             Results: Logit
 =======================================================================
-Model:                Logit              Pseudo R-squared:   0.072     
-Dependent Variable:   race:B             AIC:                3375.7317 
-Date:                 2020-04-14 17:40   BIC:                3488.5147 
-No. Observations:     2796               Log-Likelihood:     -1668.9   
-Df Model:             18                 LL-Null:            -1797.8   
-Df Residuals:         2777               LLR p-value:        1.9932e-44
+Model:                Logit              Pseudo R-squared:   0.088     
+Dependent Variable:   race:B             AIC:                3317.5804 
+Date:                 2020-04-15 12:55   BIC:                3436.2993 
+No. Observations:     2796               Log-Likelihood:     -1638.8   
+Df Model:             19                 LL-Null:            -1797.8   
+Df Residuals:         2776               LLR p-value:        3.9079e-56
 Converged:            1.0000             Scale:              1.0000    
-No. Iterations:       5.0000                                           
+No. Iterations:       6.0000                                           
 -----------------------------------------------------------------------
                          Coef.  Std.Err.    z    P>|z|   [0.025  0.975]
 -----------------------------------------------------------------------
-signs_of_mental_illness -0.7387   0.1100 -6.7157 0.0000 -0.9543 -0.5231
-body_camera              0.5809   0.1265  4.5911 0.0000  0.3329  0.8288
-summer                   0.0435   0.1186  0.3669 0.7137 -0.1889  0.2760
-fall                    -0.0186   0.1225 -0.1519 0.8793 -0.2587  0.2215
-winter                   0.1540   0.1167  1.3198 0.1869 -0.0747  0.3827
-gender:M                 0.2976   0.2135  1.3939 0.1633 -0.1208  0.7160
-flee:Not fleeing        -0.1304   0.2215 -0.5886 0.5561 -0.5645  0.3038
-flee:Car                -0.0464   0.2375 -0.1955 0.8450 -0.5119  0.4191
-flee:Foot                0.4813   0.2412  1.9950 0.0460  0.0085  0.9541
-flee:Other              -0.4152   0.3252 -1.2767 0.2017 -1.0526  0.2222
-threat_level:attack     -0.0408   0.2147 -0.1898 0.8495 -0.4616  0.3801
-threat_level:other      -0.1481   0.2183 -0.6782 0.4976 -0.5759  0.2798
-armed:r:gun              0.0338   0.0983  0.3434 0.7313 -0.1589  0.2264
-armed:r:unarmed          0.2650   0.1751  1.5129 0.1303 -0.0783  0.6082
-child                    0.7414   0.6554  1.1313 0.2579 -0.5431  2.0259
-young adult              0.9393   0.1005  9.3433 0.0000  0.7423  1.1364
-state:almost_all_white  -0.4205   0.1276 -3.2966 0.0010 -0.6706 -0.1705
-state:majority_white     0.0573   0.1127  0.5084 0.6112 -0.1636  0.2782
-intercept               -0.9526   0.3597 -2.6487 0.0081 -1.6575 -0.2477
+signs_of_mental_illness -0.7156   0.1110 -6.4453 0.0000 -0.9332 -0.4980
+body_camera              0.5833   0.1282  4.5489 0.0000  0.3320  0.8346
+summer                   0.0631   0.1201  0.5251 0.5995 -0.1723  0.2984
+fall                    -0.0373   0.1237 -0.3011 0.7634 -0.2798  0.2053
+winter                   0.1481   0.1180  1.2554 0.2093 -0.0831  0.3793
+gender:M                 0.2779   0.2153  1.2908 0.1968 -0.1440  0.6998
+flee:Not fleeing        -0.1138   0.2255 -0.5047 0.6138 -0.5557  0.3281
+flee:Car                -0.1194   0.2412 -0.4949 0.6206 -0.5922  0.3534
+flee:Foot                0.3971   0.2450  1.6209 0.1050 -0.0831  0.8773
+flee:Other              -0.5120   0.3286 -1.5582 0.1192 -1.1559  0.1320
+threat_level:attack     -0.0327   0.2156 -0.1514 0.8796 -0.4553  0.3900
+threat_level:other      -0.1343   0.2193 -0.6126 0.5401 -0.5641  0.2955
+armed:r:gun              0.0780   0.0993  0.7855 0.4321 -0.1166  0.2727
+armed:r:unarmed          0.2198   0.1754  1.2533 0.2101 -0.1240  0.5636
+child                    1.3955   0.6588  2.1182 0.0342  0.1043  2.6868
+young adult              1.5771   0.1349 11.6878 0.0000  1.3126  1.8415
+adult                    0.8610   0.1155  7.4532 0.0000  0.6346  1.0874
+state:almost_all_white  -0.4263   0.1286 -3.3143 0.0009 -0.6785 -0.1742
+state:majority_white     0.0741   0.1139  0.6503 0.5155 -0.1491  0.2972
+intercept               -1.5889   0.3733 -4.2564 0.0000 -2.3206 -0.8573
 =======================================================================
 ```
 
@@ -237,10 +239,12 @@ As suspected, none of the seasonal variables are statistically significant at an
 - signs_of_mental_illness
 - body_camera
 - flee:Foot
+- child
 - young adult
+- adult
 - state:almost_all_white
 
-The last time I ran this exercise with a less-complete dataset, I used slightly different model inputs, and the significant inputs were:
+The last time I ran this exercise with a smaller dataset, I used slightly different model inputs, and the significant inputs were:
 - The white percentage in the given state of the shootings
 - The age of the suspect
 - Whether the suspect displayed signs of mental illness
@@ -410,15 +414,16 @@ The first analysis I completed suggested that younger individuals were more like
 
 ![](https://github.com/mikekeith52/Police-shootings-insights_updated/blob/master/img/age_histogram.png)
 
-A lot of people, social scientists espcially, have speculated that in our country, many white people, including police officers, view black men and women as more developed at younger ages, more threatening, and more responsible for their wrong actions, than whites at similar ages. The data does not refute the opinions of people who assert this. In the Random Forest model, the young_adult variable was most helpful in making predictions. In the Logistic Model, the same variable was the most statistically significant (and its sign indicated that young_adults killed are much more likely to be black). It is actually really jarring and should be paid attention to. When one is making judgements of how old and/or threatening an individual appears, she should call into question her own racial biases before making any conclusions in that regard.  
+A lot of people, social scientists espcially, have speculated that in our country, many white people, including police officers, view black men and women as more developed at younger ages, more threatening, and more responsible for their wrong actions than whites at similar ages. The data does not refute the opinions of people who assert this. In the Random Forest model, the young_adult variable was most helpful in making predictions. In the Logistic Model, the same variable was the most statistically significant (and its sign indicated that young_adults killed are much more likely to be black). All three age variables indicated that younger individuals killed by the police are significantly less likely to be white. It is actually really jarring and should be paid attention to. When one is making judgements of how old and/or threatening an individual appears, she should call into question her own racial biases before making any conclusions in that regard.  
 
-I can already see the argument against this--black young adults are more threatening in altercations, more likely to be armed, more likely to provoke the police, etc. It's not racist, it's just the truth. But, remember, many of those extraneous factors are controlled for in the results. We have a variable for threat level. We have a variable describing how the individual was armed and another for whether they were fleeing. If blacks or whites were doing these actions more often than the other when killed by police, the data would show it. Instead, the data suggests that *just the fact of a black male being between 16 and 25 years of age is in itself an indicator of an increased ability of our law enforcement to execute that individual*, all other factors being held equal. Indeed, it is the most determinant factor. That should be shocking to everybody reading.  
+I can already see the argument against this--younger blacks are more threatening in altercations, more likely to be armed, more likely to provoke the police, etc. It's not racist, it's just the truth; it might not even be their fault. It's just the environment they were raised in.  
+
+But, remember, many of those extraneous factors are controlled for in the results. We have a variable for threat level. We have a variable describing how the individual was armed and another for whether they were fleeing. If blacks or whites were doing these actions more often than the other when killed by police, the data would show it. Instead, the data suggests that *just the fact of a black male being between 16 and 25 years of age is in itself an indicator of an increased ability of our law enforcement to execute that individual*, all other factors being held equal. Indeed, it is the most determinant factor. That should be shocking to everybody reading.  
 
 ### Signs of Mental Illness
 In both rounds of analysis, the signs_of_mental_illness variable was highly indicative of an individual being more likely white when killed by police. I have thought about this finding and suspect the answer may be that we are more willing generally as a society to label whites who misbehave as mentally ill. When a non-white person commits a crime, that person is more likely to just be "bad." With whites, we are more likely, when we are reporting and talking about this, to think there must have been some uncontrollable factor, like mental illness, that caused the white individual to get in a situation to be killed by police. Again, it's likely a sign of implicit bias.  
 
 ### Body camera
-
 In both rounds of analyses, the data suggests that officers with active body cameras are more likely to have killed a black individual, and this is a highly significant input. I've spent a little bit of time thinking about this, and I believe the most likely explanation is this is reflective of how news is consumed in America. The Washington Post documentation suggests that this variable is assigned a True value only when the active body camera is mentioned in the associated story of the police killing. It is not actually explicitly determined by whether the officer was wearing an active body camera. What this suggests to me is that in news stories about blacks being killed, the question of whether the officer was wearing a body camera is more likely to come up. These types of killings are viewed as more scandalous in our society than when a white person is killed (usually) and one of the first things we want to know, no matter what side of the political aisle we're on, is if we can see the camera to decide for ourselves whether the killing was justified or not. This makes more sense to me than the body camera coming into the decision-making of the officer to kill a black or white individual to such a large degree.  
 
 ![](https://github.com/mikekeith52/Police-shootings-insights_updated/blob/master/img/body_camera_boxplot.png)

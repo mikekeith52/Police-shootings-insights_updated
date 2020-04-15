@@ -2,11 +2,11 @@
 The question frequently comes up about if when the police shoot and kill an individual, whether that killing was racially motivated.
 
 ## Update
-This project is an update of one I completed a few years ago with the same data. My initial thought was that the predictors in this dataset didn't have any strong predictive power, so the last project I completed was fully descriptive in nature. I wanted to know the direction of the factors in the dataset and whether we could see statistical significance by measuring their effect on the target variable.  
+This project is an update of one I completed a few years ago with the same data. My initial thought was that the predictors in this dataset didn't have any strong predictive power, so the last project I completed was fully descriptive in nature. I wanted to know the direction of the factors in the dataset and whether we could see statistical significance by measuring their effect on the target variable. I wasn't interested in knowing if the variables could demonstrate any predictive power.  
 
 This time, I wanted to expand on the descriptive analysis, offering more in-depth insights into *why* the data was saying what it was, as well as try to offer predictive techniques that could out-perform simply guessing about the data.  
 
-Last time I used R, this time I used Python.  
+Programming note: last time I used R, this time I used Python.  
 
 The key takeaways are given their own section [below](#key-findings). Before that, I will review the data in question and my methodology in deriving my conclusions.  
 

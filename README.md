@@ -50,6 +50,31 @@ I used Python in Jupyter Notebook -- version 3.7.4. Beyond the libraries availab
 ```Python
 data = pd.read_csv('https://raw.githubusercontent.com/washingtonpost/data-police-shootings/master/fatal-police-shootings-data.csv')
 ```
+I also used R to scrape a wikipedia table to obtain statewid racial data. This can be done in Python as well, but some things are easier in R, especially considering that everything comes in dataframe format already. The R code is given below:
+
+```R
+setwd('C:/Users/uger7/OneDrive/Documents/PoliceShootings')
+
+library(rvest)
+library(stringi)
+
+url <- "https://en.wikipedia.org/wiki/List_of_U.S._states_by_non-Hispanic_white_population"
+df1 <- url %>%
+  read_html() %>%
+  html_nodes(xpath='//*[@id="mw-content-text"]/div/table[1]') %>%
+  html_table(fill=T)
+df1<-data.frame(df1)
+
+state_info<-data.frame(name=c(state.name,"District of Columbia"),
+                       abb=c(state.abb,"DC"))
+
+df1['state_abb'] <- state_info$abb[
+  match(df1$'State.Territory',state_info$name)]
+
+df1 <- df1[is.na(df1$state_abb) == F, ]
+
+write.csv(df1,'statewide_race_data.csv',row.names=F)
+```
 
 ### Clean Data
 An important part of this was being able to quickly make all data numeric, specifically I wanted all variables to binary 0/1. I used a custom dataframe class, building off the pandas library, to accomplish this quickly (my unique solution):
@@ -272,7 +297,7 @@ The ROC Curve from the Logistic Model is bumpy, but the curve expands out from y
 
 ![](https://github.com/mikekeith52/Police-shootings-insights_updated/blob/master/img/Log_ROC.png)
 
-Feature importance from the Random Forest model:
+Feature importance from the Random Forest model (in case the x-axis is cut off, this graph can be seen at the bottom of the predict_shootings.ipynb script):
 
 ![](https://github.com/mikekeith52/Police-shootings-insights_updated/blob/master/img/feature_importance.png)
 

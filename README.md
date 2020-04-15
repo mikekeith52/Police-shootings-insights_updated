@@ -1,4 +1,5 @@
 
+
 # Racially Motivated Police Shootings
 The question frequently comes up about if when the police shoot and kill an individual, whether that killing was racially motivated.
 
@@ -12,25 +13,25 @@ Programming note: last time I used R, this time I used Python.
 The key takeaways are given their own section [below](#key-findings). Before that, I will review the data in question and my methodology in deriving my conclusions.  
 
 ## Caveats
-The [Washington Post GitHub page](https://github.com/mikekeith52/data-police-shootings) offers import insights and caveats about the data. Alghough this data isn't inclusive of all police killings over the timeframe (01/02/2015 to 03/19/2020), it is many times larger than the FBI database of the same measurements. Every one of the 5,174 rows in the dataset represents a death by police shooting. The dataset includes measures of:
+The [Washington Post GitHub page](https://github.com/mikekeith52/data-police-shootings) offers import insights and caveats about the data. Although this data isn't inclusive of all police killings over the timeframe (01/02/2015 to 03/19/2020), it is many times larger than the FBI database of the same measurements. Every one of the 5,174 rows in the dataset represents a death by police shooting. The dataset includes measures of:
 
 - Name of killed individual
-- Date of occurence
+- Date of occurrence
 - Manner of Death (shot or shot and tasered)
 - If the victim was armed and how (including common and uncommon weapons - guns, crossbows, etc.)
 - The age of the individual
-- City and state of occurence
+- City and state of occurrence
 - Whether the police reports indicated if the individual showed signs of mental illness
 - The threat level of the individual (attacking, not attacking, undetermined)
-- Whether the vitcim was fleeing
+- Whether the victim was fleeing
 - Whether the story linked to the incident mentioned that the police's body camera was playing
 
 This dataset is not an indication of all police altercations. An interesting research question would be to predict if a given police altercation leads to death and whether race plays a part in being able to predict that outcome. The answer to that question is not available in this dataset.  
 
 In addition to the measures listed above, I added the demographic information from a Wikipedia site to determine the percent of white individuals in the state for every given observation, according to 2012 estimates (last time I used 2000 estimates and argued why I didn't think that would be a problem). I also added seasons - winter, fall, and summer (where spring is omitted) to see if that made any difference; I didn't think it would.  
 
-## Reasearch Question
-Given that a police killing has occured, can we use the factors in this dataset to determine if the individual was more likely white or black? Can we determine how the factors in the dataset move directionally with the outcome of interest?
+## Research Question
+Given that a police killing has occurred, can we use the factors in this dataset to determine if the individual was more likely white or black? Can we determine how the factors in the dataset move directionally with the outcome of interest?
 
 ## Process
 I used a systematic Machine Learning approach to analyzing the data. The steps I followed were:
@@ -51,7 +52,7 @@ I used Python in Jupyter Notebook -- version 3.7.4. Beyond the libraries availab
 ```Python
 data = pd.read_csv('https://raw.githubusercontent.com/washingtonpost/data-police-shootings/master/fatal-police-shootings-data.csv')
 ```
-I also used R to scrape a wikipedia table to obtain statewid racial data. This can be done in Python as well, but some things are easier in R, especially considering that everything comes in dataframe format already. The R code is given below:
+I also used R to scrape a Wikipedia table to obtain statewide racial data. This can be done in Python as well, but some things are easier in R, especially considering that everything comes in dataframe format already. The R code is given below:
 
 ```R
 setwd('C:/Users/uger7/OneDrive/Documents/PoliceShootings')
@@ -279,7 +280,7 @@ def cross_validate_rf(X_train,y_train,k=3,grid=grid,loss='gini'):
     # return the row with the lowest error metric as well as the full set of results
     return hyper_grid.loc[hyper_grid['total_error'] == min_error], hyper_grid
 ```
-The optimal hyperparemeters were returned:
+The optimal hyperparameters were returned:
 
 |max_depth|n_estimators|min_samples_split|max_features|max_samples|error_1|error_2|error_3|total_error|
 |---|---|---|---|---|---|---|---|---|
@@ -350,7 +351,7 @@ It doesn't look like it has changed much since September of 2018 (the proportion
 
 This gives us a total chi-squared coefficient value of 6.26. The critical value to be 95% certain with 5 degrees of freedom that the population is changing over time is 11.07. Therefore, we cannot reject the null hypothesis and do not have enough evidence to conclude that the population has changed over time.  
 
-An interesting table to look at is to see which states are the most likely and least likely to have more blacks killed in altercations than whites given their own proportion of whites and blacks in the states. I did this by matching the percentage white each state was divided by the percentage of whites that appared in the dataset for that given state. The top 5 states that were most likely to see blacks killed compared with their population were:
+An interesting table to look at is to see which states are the most likely and least likely to have more blacks killed in altercations than whites given their own proportion of whites and blacks in the states. I did this by matching the percentage white each state was divided by the percentage of whites that appeared in the dataset for that given state. The top 5 states that were most likely to see blacks killed compared with their population were:
 
 |State Name|B|W|killed percent white|in state percent white|ratio killed vs. in state|
 |---|---|---|---|---|---|
@@ -367,28 +368,26 @@ And the top 5 most likely to see whites killed were:
 |Texas|90|162|64.29|44.3|145.12|
 |Arizona|16|104|86.67|56.9|152.32|
 |California|118|203|63.24|39.2|161.33|
-|New|Mexico|1|24	96.00|39.7|241.81|
+|New|Mexico|1|24    96.00|39.7|241.81|
 |Hawaii|1|3|75.00|22.8|328.95|
 
-Sample size can play a factor into these results (I'm not complaining!). It is interesting data nonetheless. The full dataset is avaiable as states_ratio.csv. 
+Sample size can play a factor into these results (I'm not complaining!). It is interesting data nonetheless. The full dataset is available as states_ratio.csv. 
 
 ### Age of Killed Individual
 The first analysis I completed suggested that younger individuals were more likely to be black, and this is backed up in every view of the data. Particularly, black young adults (between 16 and 25) are much more likely to be killed by police.
 
 ![](https://github.com/mikekeith52/Police-shootings-insights_updated/blob/master/img/age_histogram.png)
 
-A lot of people, social scientists espcially, have speculated that in our country, many police officers view black men and women as more developed at younger ages, more threatening, than whites at similar ages. This may be a sign of an implicit bias. Considering that in the Random Forest model, the young_adult variable was most helpful in making predictions, and that in the Logistic Model, the young_adult variable was the most statistically significant (and its sign indicated that young_adults killed are much more likely to be black), there is nothing in this data that disputes the original assertion. It is really eye-opening and should be paid attention to. When we are making judgements of how old and/or threatening an individual appears, we should call into question our own racial biases before making any conclusions in this regard.  
+A lot of people, social scientists espcially, have speculated that in our country, many police officers view black men and women as more developed at younger ages, more threatening, than whites at similar ages. The data suggests they are right. This phenomenon may be a sign of an implicit bias on the part of the enforcing officers. In the Random Forest model, the young_adult variable was most helpful in making predictions, and that in the Logistic Model, the same variable was the most statistically significant (and its sign indicated that young_adults killed are much more likely to be black). There is nothing in this data that disputes the social scientists making this argument. It is really eye-opening and should be paid attention to. When we are making judgements of how old and/or threatening an individual appears, we should call into question our own racial biases before making any conclusions in that regard.  
 
-I can already see the argument against this--black young adults are more threatening, more likely to be armed, more likely to provoke the police, etc. But, remember, all those factors are controlled for in the model. The data suggests that just the fact of a black male being between 16 and 25 years of age is in itself a likely indicator of an increased ability of our law enforcement to execute that individual, all other factors being held equal. That should be really shocking to everybody reading.  
+I can already see the argument against this--black young adults are more threatening, more likely to be armed, more likely to provoke the police, etc. But, remember, all those factors are controlled for in the models. We have a variable for threat level. We have a variable describing how the individual was armed and whether they were fleeing. If blacks or whites were doing these actions more often than the other when killed, the data would show it. Instead, the data suggests that just the fact of a black male being between 16 and 25 years of age is in itself an indicator of an increased ability of our law enforcement to execute that individual, all other factors being held equal. Indeed, it is the most determinant factor. That should be really shocking to everybody reading.  
 
 ### Signs of Mental Illness
-In both rounds of analysis, the signs_of_mental_illness variable was highly indicative of an individual being more likely white when killed by police. I have thought about this finding and suspect the answer may be that we are more willing generally as a society to label whites who misbehave as mentally ill. When a non-white person commits a crime, that person is more likely to just be "bad." With whites, we are more likely, in reporting and in life, to think there must have been some uncontrollable factor, like mental illness, that caused that individual to get in a situation to be killed by police.
-
-The phenomenon could also be correlated with material wealth and increased ability of whites to receive mental-illness diagnoses from medical professionals. It could be both. Maybe even medical professionals are more likely to diagnose a white person with mental illness and treat that illness. This, again, would support many assertion of social scientists.  
+In both rounds of analysis, the signs_of_mental_illness variable was highly indicative of an individual being more likely white when killed by police. I have thought about this finding and suspect the answer may be that we are more willing generally as a society to label whites who misbehave as mentally ill. When a non-white person commits a crime, that person is more likely to just be "bad." With whites, we are more likely, as a society when we are reporting and talking about this, to think there must have been some uncontrollable factor, like mental illness, that caused the white individual to get in a situation to be killed by police.  
 
 ### Body camera
 
-Again, in both rounds of analyses, the data suggests that officers with active body cameras are more likely to have killed a black individual, and this is highly significant. I've spent a little bit of time thinking about this, and I think the most likely explanation is this is reflective of a bias in reporting. The Washington Post documentation suggests that this variable is assigned a True value only when the active body camera is mentioned in the associated story of the police killing. It is not actually explicitly correlated with whether or not the officer was actually wearing an active body camera or not. What this suggests to me is that in news stories about blacks being killed, the question of whether the officer was wearing a body camera is more likely to come up. These types of killings are viewed as more scandelous in our society and one of the first things we want to know, no matter what side of the poltical ilse were on, is if we can see the camera to decide for ourselves whether the killing was just or unjust. This makes more sense to me than the body camera coming into the decision-making of the officer to such a large degree. 
+Again, in both rounds of analyses, the data suggests that officers with active body cameras are more likely to have killed a black individual, and this is a highly significant input. I've spent a little bit of time thinking about this, and I believe the most likely explanation is this is reflective of a bias in reporting. The Washington Post documentation suggests that this variable is assigned a True value only when the active body camera is mentioned in the associated story of the police killing. It is not actually explicitly determined by whether the officer was actually wearing an active body camera. What this suggests to me is that in news stories about blacks being killed, the question of whether the officer was wearing a body camera is more likely to come up. These types of killings are viewed as more scandalous in our society and one of the first things we want to know, no matter what side of the political aisle we're on, is if we can see the camera to decide for ourselves whether the killing was just or unjust. This makes more sense to me than the body camera coming into the decision-making of the officer to such a large degree. 
 
 ![](https://github.com/mikekeith52/Police-shootings-insights_updated/blob/master/img/body_camera_boxplot.png)
 

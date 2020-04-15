@@ -4,16 +4,16 @@
 The question frequently comes up about if when the police shoot and kill an individual, whether that killing was racially motivated.
 
 ## Update
-This project is an update of one I completed a few years ago with the same data. My initial thought was that the predictors in this dataset didn't have any strong predictive power, so the last project I completed was fully descriptive in nature. I wanted to know the direction of the factors in the dataset and whether we could see statistical significance by measuring their effect on the target variable. I wasn't interested in knowing if the variables could demonstrate any predictive power.  
+This project is an [update](https://github.com/mikekeith52/Police-shootings-insights) of one I completed a few years ago with the same data. My initial thought was that the predictors in this dataset didn't have any strong predictive power, so the last project I completed was fully descriptive in nature. I wanted to know the direction of the factors in the dataset and whether we could see statistical significance by measuring their effect on the target variable. I wasn't interested in knowing if the variables could demonstrate any predictive power.  
 
 This time, I wanted to expand on the descriptive analysis, offering more in-depth insights into *why* the data was saying what it was, as well as try to offer predictive techniques that could out-perform simply guessing about the data.  
 
 Programming note: last time I used R, this time I used Python.  
 
-The key takeaways are given their own section [below](#key-findings). Before that, I will review the data in question and my methodology in deriving my conclusions.  
+The key takeaways are given their own section [below](#key-findings). Before that, I will review the data in question and my methodology in deriving the conclusions.  
 
 ## Caveats
-The [Washington Post GitHub page](https://github.com/mikekeith52/data-police-shootings) offers import insights and caveats about the data. Although this data isn't inclusive of all police killings over the timeframe (01/02/2015 to 03/19/2020), it is many times larger than the FBI database of the same measurements. Every one of the 5,174 rows in the dataset represents a death by police shooting. The dataset includes measures of:
+The [Washington Post GitHub page](https://github.com/mikekeith52/data-police-shootings) offers important insights and caveats about the data. Although this data isn't inclusive of all police killings over the timeframe (01/02/2015 to 03/19/2020), it is many times larger than the FBI database that captures the same information. Every one of the 5,174 rows in the dataset represents a death by police shooting. The dataset includes measures of:
 
 - Name of killed individual
 - Date of occurrence
@@ -226,7 +226,7 @@ Model Total Accruacy: 0.70
 ```
 
 ### Random Forest Model
-A Random Forest model can be influenced by its hyperparameters much more than a Logistic Model, which is a closed solution. I chose to use 3-fold cross-validation to tune the RF model (my unique code, except the expand_grid function which I obtained from [Stack Overflow](https://stackoverflow.com/questions/12130883/r-expand-grid-function-in-python)):
+A Random Forest model can be influenced by its hyperparameters much more than a Logistic Model. I chose to use 3-fold cross-validation to tune the RF model (my unique code, except the expand_grid function which I obtained from [Stack Overflow](https://stackoverflow.com/questions/12130883/r-expand-grid-function-in-python)):
 ``` Python
 # Random Forest Classifier
 hyper_params = {

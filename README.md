@@ -334,7 +334,7 @@ The finding being that blacks are represented in this dataset more than twice as
 |Other|46|1.01%|9.30%|10.86%|
 |White|2286|50.23%|72.40%|69.38%|
 
-You may notice these numbers do not add up to the total (5,174). The remaining observations belong to those where the racial data is missing in the dataset. Reading the Washington Post documentation, these appear to be cases where the race was not disclosed to the public. Because there is no systematic way to assign these observations, they are removed from the dataset.  
+You may notice these numbers do not add up to the total (5,174) stated earlier. The remaining observations belong to those where the racial data is missing in the dataset. Reading the Washington Post documentation, these appear to be cases where the race was not disclosed to the public. Because there is no systematic way to assign these observations, they are removed from the dataset.  
 
 It doesn't look like it has changed much since September of 2018 (the proportion of blacks is up slightly and the proportion of whites is down), but the question is, has it statistically? Are the proportion of blacks being killed by the police really increasing over time? Or has it stayed the same? We can perform a chi-squared test to figure this out. The chi-squared test will use our observed number for each group and compare it with the number we'd expect had the numbers remained exactly even since 2018.
 

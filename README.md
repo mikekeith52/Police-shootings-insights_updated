@@ -270,19 +270,19 @@ Without hyper-parameter tuning and using the default parameters from the RandomF
 ### Visualize Results
 The ROC Curve from the Logistic Model is bumpy, but the curve expands out from y=x, another metric of our model's adequate efficiency in making predictions:
 
-![]()
+![](https://github.com/mikekeith52/Police-shootings-insights_updated/blob/master/img/Log_ROC.png)
 
 Feature importance from the Random Forest model:
 
-![]()
+![](https://github.com/mikekeith52/Police-shootings-insights_updated/blob/master/img/feature_importance.png)
 
 It is interesting to select one of the bagged trees from the Random Forest model and it gives some insight into which variables are influencing the algorithms's decisions in certain directions.
 
-![]()
+![](https://github.com/mikekeith52/Police-shootings-insights_updated/blob/master/img/tree.png)
 
 This is easier to see with a smaller-tree subset.
 
-![]()
+![](https://github.com/mikekeith52/Police-shootings-insights_updated/blob/master/img/small_tree.png)
 
 ## Key Findings
 
@@ -349,7 +349,7 @@ Sample size can play a factor into these results (I'm not complaining!). It is i
 ### Age of Killed Individual
 The first analysis I completed suggested that younger individuals were more likely to be black, and this is backed up in every view of the data. Particularly, young adults (between 16 and 25) are much more likely to be killed by police.
 
-![]()
+![](https://github.com/mikekeith52/Police-shootings-insights_updated/blob/master/img/age_histogram.png)
 
 A lot of people, social scientists espcially, have speculated that in our country, many police officers view black men and women as more developed at younger ages, more threatening, than whites at similar ages. This may be a sign of an implicit bias. Considering that in the Random Forest model, the young_adult variable was most helpful in making predictions, and that in the Logistic Model, the young_adult variable was the most statistically significant (and its sign indicated that young_adults killed are much more likely to be black), there is nothing in this data that disputes that assertion. It is really eye-opening and should be paid attention to. When we are making judgements of how old and/or threatening an individual appears, we should call into question our own racial biases before making any conclusions in this regard.  
 
@@ -364,7 +364,7 @@ The phenomenon could also be correlated with material wealth and increased abili
 
 Again, in both rounds of analyses, the data suggests that officers with active body cameras are more likely to have killed a black individual, and this is highly significant. I've spent a little bit of time thinking about this, and I think the most likely explanation is this is reflective of a bias in reporting. The Washington Post documentation suggests that this variable is assigned a True value only when the active body camera is mentioned in the associated story of the police killing. It is not actually explicitly correlated with whether or not the officer was actually wearing an active body camera or not. What this suggests to me is that in news stories about blacks being killed, the question of whether the officer was wearing a body camera is more likely to come up. These types of killings are viewed as more scandelous in our society and one of the first things we want to know, no matter what side of the poltical ilse were on, is if we can see the camera to decide for ourselves whether the killing was just or unjust. This makes more sense to me than the body camera coming into the decision-making of the officer to such a large degree. 
 
-![]()
+![](https://github.com/mikekeith52/Police-shootings-insights_updated/blob/master/img/body_camera_boxplot.png)
 
 ### Seasons 
 Seasons (winter vs. fall vs. spring vs. summer) appear to play a negligible role in predicting the outcome of interest in this dataset. That is not unsurprising, although it should be noted that the Random Forest model did not find these variables completely unhelpful.

@@ -252,7 +252,7 @@ The last time I ran this exercise with a smaller dataset, I used slightly differ
 - The gender of the suspect
 - Whether or not the suspect was carrying a "toy weapon" 
 
-I combined the Hispanic and Black races last time I did this. This time, I was only interested in white vs. black. Further exploration of these model interpretations can be found in the [Key Findings](#key-findings) section.  
+So, the same variables came up statistically significant this time, except "toy weapon," which I omitted this time. I combined the Hispanic and Black races last time I did this. This time, I was only interested in white vs. black. Further exploration of these model interpretations can be found in the [Key Findings](#key-findings) section.  
 
 The total accuracy of this model, when tested on the test split was 70%. The no-information rate was 64%. This model is slightly better than simply guessing, which to me, is better-than-expected considering these aren't the best inputs, nor is this the easiest question to answer.
 
@@ -350,7 +350,7 @@ This is easier to see with a smaller-tree subset.
 ## Key Findings
 
 ### Race in States
-One of my key findings the first time I completed this analysis (9/12/2018) was that as "the percentage of non-white people increases per state, the proportion of blacks, Hispanics, Native Americans, and "other race" killed by police increases almost exactly proportionally." One of the most jarring tables from this analysis was the one below:
+One of my key findings the first time I completed this analysis (9/12/2018) was that as "the percentage of non-white people increases per state, the proportion of blacks, Hispanics, Native Americans, and 'other race' killed by police increases almost exactly proportionally." One of the most jarring tables from this analysis was the one below:
 
 |Race|Number times in dataset|Percent of Total in Data|Natl Avg|Ratio: Perc in Data to Natl Avg|
 |---|---|---|---|---|

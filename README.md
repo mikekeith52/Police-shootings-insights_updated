@@ -1,3 +1,4 @@
+
 # Racially Motivated Police Shootings
 The question frequently comes up about if when the police shoot and kill an individual, whether that killing was racially motivated.
 
@@ -351,23 +352,23 @@ This gives us a total chi-squared coefficient value of 6.26. The critical value 
 
 An interesting table to look at is to see which states are the most likely and least likely to have more blacks killed in altercations than whites given their own proportion of whites and blacks in the states. I did this by matching the percentage white each state was divided by the percentage of whites that appared in the dataset for that given state. The top 5 states that were most likely to see blacks killed compared with their population were:
 
-|State Name|B|W|killed percent white|in state percent white|ratio killed:in state|
+|State Name|B|W|killed percent white|in state percent white|ratio killed vs. in state|
 |---|---|---|---|---|---|---|
-District of Columbia|12|1|7.69|35.3|21.78|
-Rhode Island|2|1|33.33|75.4|44.20|
-Illinois|57|28|32.94|62.9|52.37|
-Louisiana|56|36|39.13|59.7|65.54|
-Maryland|43|24|35.82|53.8|66.58|
+|District of Columbia|12|1|7.69|35.3|21.78|
+|Rhode Island|2|1|33.33|75.4|44.20|
+|Illinois|57|28|32.94|62.9|52.37|
+|Louisiana|56|36|39.13|59.7|65.54|
+|Maryland|43|24|35.82|53.8|66.58|
 
 And the top 5 most likely to see whites killed were:
 
-|State Name|B|W|killed percent white|in state percent white|ratio killed:in state|
+|State Name|B|W|killed percent white|in state percent white|ratio killed vs. in state|
 |---|---|---|---|---|---|---|
-Texas|90|162|64.29|44.3|145.12|
-Arizona|16|104|86.67|56.9|152.32|
-California|118|203|63.24|39.2|161.33|
-New|Mexico|1|24	96.00|39.7|241.81|
-Hawaii|1|3|75.00|22.8|328.95|
+|Texas|90|162|64.29|44.3|145.12|
+|Arizona|16|104|86.67|56.9|152.32|
+|California|118|203|63.24|39.2|161.33|
+|New|Mexico|1|24	96.00|39.7|241.81|
+|Hawaii|1|3|75.00|22.8|328.95|
 
 Sample size can play a factor into these results (I'm not complaining!). It is interesting data nonetheless. The full dataset is avaiable as states_ratio.csv. 
 

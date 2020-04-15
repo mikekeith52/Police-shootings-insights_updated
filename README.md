@@ -148,6 +148,38 @@ This offers three important additional methods for a dataframe:
 - impute_na() uses a simple k-nearest-neighbors model to fill in missing data; I used this for the age column, which was missing around 50 values, I then created buckets for age to create room for error in this process. I did not use the race variable for this imputation as that would create endogeneity in the models
 - dummy_regex() will create a dummy variable based on if a word is included in a column
 
+This is how the custom dataframe class was applied to the dataset:
+
+``` Python
+# use dynamic dataframe processing
+data_processed = ddf(data)
+# dummy variables
+data_processed.dummy('race',exclude_values=['W'])
+data_processed.dummy('gender',exclude_values=['F'])
+data_processed.dummy('flee',exclude_na_levels=True,na_levels='nan')
+data_processed.dummy('threat_level',exclude_values=['undetermined'])
+
+# dummy variables using regex
+data_processed.dummy_regex('armed',['gun'])
+data_processed.dummy_regex('armed',['unarmed'])
+
+# impute missing age data 
+data_processed.impute_na('age',exclude='race:B')
+# bucket age into classes (less than 15, 16 to 25, and 26 to 45; over 45 is the omitted class)
+data_processed['child'] = data_processed['age'].apply(lambda x: x <= 15).astype(int)
+data_processed['young adult'] = data_processed['age'].apply(lambda x: (x > 15) & (x <= 25)).astype(int)
+
+# bucket state demographic info (more than 75% white, and 50% to 75% white; less than 50% white is the omitted class)
+data_processed['state:almost_all_white'] = data_processed['state_percent_white'].apply(lambda x: x > 75).astype(int)
+data_processed['state:majority_white'] = data_processed['state_percent_white'].apply(lambda x: (x >= 50) & (x <= 75)).astype(int)
+
+# now that everyting is a binary 0/1 var, drop all non-integer data types
+data_processed.drop(columns=['age','id','state_percent_white'],inplace=True)
+for col in data_processed:
+    if data_processed[col].dtype not in (np.int32,np.int64,int):
+        data_processed.drop(columns=col,inplace=True)
+```
+
 ### Split Data
 I used an 80/20 split:
 ```Python
@@ -226,7 +258,7 @@ Model Total Accruacy: 0.70
 ```
 
 ### Random Forest Model
-A Random Forest model can be influenced by its hyperparameters much more than a Logistic Model. I chose to use 3-fold cross-validation to tune the RF model (my unique code, except the expand_grid function which I obtained from [Stack Overflow](https://stackoverflow.com/questions/12130883/r-expand-grid-function-in-python)):
+A Random Forest model can be influenced by its hyperparameters much more than a Logistic Model. I chose to use 3-fold cross-validation, on the training set only, to tune the RF model (my unique code, except the expand_grid function which I obtained from [Stack Overflow](https://stackoverflow.com/questions/12130883/r-expand-grid-function-in-python)):
 ``` Python
 # Random Forest Classifier
 hyper_params = {
@@ -299,7 +331,7 @@ The ROC Curve from the Logistic Model is bumpy, but the curve expands out from y
 
 ![](https://github.com/mikekeith52/Police-shootings-insights_updated/blob/master/img/Log_ROC.png)
 
-Feature importance from the Random Forest model (in case the x-axis is cut off, this graph can be seen at the bottom of the predict_shootings.ipynb script):
+Feature importance from the Random Forest model:
 
 ![](https://github.com/mikekeith52/Police-shootings-insights_updated/blob/master/img/feature_importance.png)
 
@@ -355,21 +387,21 @@ An interesting table to look at is to see which states are the most likely and l
 
 |State Name|B|W|killed percent white|in state percent white|ratio killed vs. in state|
 |---|---|---|---|---|---|
-|District of Columbia|12|1|7.69|35.3|21.78|
-|Rhode Island|2|1|33.33|75.4|44.20|
-|Illinois|57|28|32.94|62.9|52.37|
-|Louisiana|56|36|39.13|59.7|65.54|
-|Maryland|43|24|35.82|53.8|66.58|
+|District of Columbia|12|1|7.7%|35.3%|21.8%|
+|Rhode Island|2|1|33.3%|75.4%|44.2%|
+|Illinois|57|28|32.9%|62.9%|52.4%|
+|Louisiana|56|36|39.1%|59.7%|65.5%|
+|Maryland|43|24|35.8%|53.8%|66.6%|
 
 And the top 5 most likely to see whites killed were:
 
 |State Name|B|W|killed percent white|in state percent white|ratio killed vs. in state|
 |---|---|---|---|---|---|
-|Texas|90|162|64.29|44.3|145.12|
-|Arizona|16|104|86.67|56.9|152.32|
-|California|118|203|63.24|39.2|161.33|
-|New|Mexico|1|24    96.00|39.7|241.81|
-|Hawaii|1|3|75.00|22.8|328.95|
+|Texas|90|162|64.3%|44.3%|145.1%|
+|Arizona|16|104|86.7%|57.0%|152.3%|
+|California|118|203|63.2%|39.2%|161.3%|
+|New Mexico|1|24|96.0%|39.7%|241.8%|
+|Hawaii|1|3|75.0%|22.8%|329.0%|
 
 Sample size can play a factor into these results (I'm not complaining!). It is interesting data nonetheless. The full dataset is available as states_ratio.csv.  
 

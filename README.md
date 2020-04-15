@@ -373,7 +373,7 @@ And the top 5 most likely to see whites killed were:
 Sample size can play a factor into these results (I'm not complaining!). It is interesting data nonetheless. The full dataset is avaiable as states_ratio.csv. 
 
 ### Age of Killed Individual
-The first analysis I completed suggested that younger individuals were more likely to be black, and this is backed up in every view of the data. Particularly, young adults (between 16 and 25) are much more likely to be killed by police.
+The first analysis I completed suggested that younger individuals were more likely to be black, and this is backed up in every view of the data. Particularly, black young adults (between 16 and 25) are much more likely to be killed by police.
 
 ![](https://github.com/mikekeith52/Police-shootings-insights_updated/blob/master/img/age_histogram.png)
 

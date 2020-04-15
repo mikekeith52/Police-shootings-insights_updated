@@ -353,7 +353,7 @@ This gives us a total chi-squared coefficient value of 6.26. The critical value 
 An interesting table to look at is to see which states are the most likely and least likely to have more blacks killed in altercations than whites given their own proportion of whites and blacks in the states. I did this by matching the percentage white each state was divided by the percentage of whites that appared in the dataset for that given state. The top 5 states that were most likely to see blacks killed compared with their population were:
 
 |State Name|B|W|killed percent white|in state percent white|ratio killed vs. in state|
-|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|
 |District of Columbia|12|1|7.69|35.3|21.78|
 |Rhode Island|2|1|33.33|75.4|44.20|
 |Illinois|57|28|32.94|62.9|52.37|
@@ -363,7 +363,7 @@ An interesting table to look at is to see which states are the most likely and l
 And the top 5 most likely to see whites killed were:
 
 |State Name|B|W|killed percent white|in state percent white|ratio killed vs. in state|
-|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|
 |Texas|90|162|64.29|44.3|145.12|
 |Arizona|16|104|86.67|56.9|152.32|
 |California|118|203|63.24|39.2|161.33|

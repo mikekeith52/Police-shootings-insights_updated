@@ -238,7 +238,6 @@ intercept               -1.5889   0.3733 -4.2564 0.0000 -2.3206 -0.8573
 As suspected, none of the seasonal variables are statistically significant at any level. The statistically significant variables are:
 - signs_of_mental_illness
 - body_camera
-- flee:Foot
 - child
 - young adult
 - adult

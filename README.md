@@ -1,19 +1,12 @@
-
-
 # Racially Motivated Police Shootings
-The question frequently comes up about if when the police shoot and kill an individual, whether that killing was racially motivated.
+The question frequently comes up about if when an active police officer shoots and kills an individual, whether that killing was racially motivated.
 
-## Update
-This project is an [update](https://github.com/mikekeith52/Police-shootings-insights) of one I completed a few years ago with the same data. My initial thought was that the predictors in this dataset didn't have any strong predictive power, so the last project I completed was fully descriptive in nature. I wanted to know the direction of the factors in the dataset and whether we could see statistical significance by measuring their effect on the target variable. I wasn't interested in knowing if the variables could demonstrate any predictive power.  
+This is an [update](https://github.com/mikekeith52/Police-shootings-insights) of a descriptive analysis I performed while in graduate school. My goal this time was to expand on the analysis and offer more in-depth insights into *why* the data was saying what it was, as well as try to implement predictive techniques with a Logistic Regression and Random Forest, using a machine learning approach.  
 
-This time, I wanted to expand on the descriptive analysis, offering more in-depth insights into *why* the data was saying what it was, as well as try to offer predictive techniques that could out-perform simply guessing about the data.  
-
-Programming note: last time I used R, this time I used Python.  
-
-The key takeaways are given their own section [below](#key-findings). Before that, I will review the data in question and my methodology in deriving the conclusions.  
+The key takeaways are given their own section [below](#key-findings).  
 
 ## Caveats
-The [Washington Post GitHub page](https://github.com/mikekeith52/data-police-shootings) offers important insights and caveats about the data. Although this data isn't inclusive of all police killings over the timeframe (01/02/2015 to 03/19/2020), it is many times larger than the FBI database that captures the same information. Every one of the 5,174 rows in the dataset represents a death by police shooting. The dataset includes measures of:
+The data is maintained by the [Washington Post](https://github.com/mikekeith52/data-police-shootings). The owners of this repository offer important insights and caveats about the data. Although this data isn't inclusive of all police killings over the timeframe specified (01/02/2015 to 03/19/2020), it is many times larger than the FBI database that captures the same information. Every one of the 5,174 rows in the dataset represents a death by police shooting. The following information is captured for each observation:
 
 - Name of killed individual
 - Date of occurrence
@@ -21,14 +14,14 @@ The [Washington Post GitHub page](https://github.com/mikekeith52/data-police-sho
 - If the victim was armed and how (including common and uncommon weapons - guns, crossbows, etc.)
 - The age of the individual
 - City and state of occurrence
-- Whether the police reports indicated if the individual showed signs of mental illness
+- Whether the official reports indicated if the individual showed signs of mental illness
 - The threat level of the individual (attacking, not attacking, undetermined)
 - Whether the victim was fleeing
-- Whether the story linked to the incident mentioned that the police's body camera was playing
+- Whether the story linked to the incident mentioned that the police's body camera was active
 
-This dataset is not an indication of all police altercations. An interesting research question would be to predict if a given police altercation leads to death and whether race plays a part in being able to predict that outcome. The answer to that question is not available in this dataset.  
+This dataset is not an indication of all police altercations, and therefore, some interesting questions cannot be answered with it. Maybe we would like to determine if a given police altercation leads to death, whether race plays a part in being able to predict that outcome. The answer to that question is not available in this dataset.  
 
-In addition to the measures listed above, I added the demographic information from a Wikipedia site to determine the percent of white individuals in the state for every given observation, according to 2012 estimates (last time I used 2000 estimates and argued why I didn't think that would be a problem). I also added seasons - winter, fall, and summer (where spring is omitted) to see if that made any difference; I didn't think it would.  
+In addition to the measures listed above, I added the demographic information from a Wikipedia article to determine the percent of white individuals in the state of every given observation, according to 2012 estimates (last time I used 2000 estimates and argued why I didn't think that would be a problem). I also added seasons - winter, fall, and summer (where spring is omitted) to see if that made any difference; I didn't think it would.  
 
 ## Research Question
 Given that a police killing has occurred, can we use the factors in this dataset to determine if the individual was more likely white or black? Can we determine how the factors in the dataset move directionally with the outcome of interest?
@@ -42,7 +35,7 @@ I used a systematic Machine Learning approach to analyzing the data. The steps I
 5. [Train a Random Forest model and tune model hyperparemeters with cross-validation](#random-forest-model)
 6. [Visualize results](#visualize-results)
 
-The dependent variable in each model was a binary 0/1 indicator of whether the individual killed in the altercation was white or black (1 for black, 0 for white).  
+The dependent variable in each model was a binary 0/1 indicator of whether the individual killed in the altercation was white or black (1 for black, 0 for white). I dropped all other races from the dataset.  
 
 I used Python in Jupyter Notebook -- version 3.7.4. Beyond the libraries available in the Anaconda standard library, the following installations are necessary:
 - [pydot](https://pypi.org/project/pydot/)
@@ -79,7 +72,7 @@ write.csv(df1,'statewide_race_data.csv',row.names=F)
 ```
 
 ### Clean Data
-An important part of this was being able to quickly make all data numeric, specifically I wanted all variables to binary 0/1. I used a custom dataframe class, building off the pandas library, to accomplish this quickly (my unique solution):
+An important part of this was being able to quickly make all data numeric. Specifically, I wanted all variables to be binary 0/1 type. I used a custom dataframe class, building off the pandas library, to transform the data quickly into this format (my unique code):
 ``` python
 # dynamic dataframe class
 class ddf(pd.core.frame.DataFrame):
@@ -145,7 +138,7 @@ class ddf(pd.core.frame.DataFrame):
 
 This offers three important additional methods for a dataframe:
 - dummy() creates a 0/1 for every unique value in a given column, option to drop original column and to exclude values (create omitted classes)
-- impute_na() uses a simple k-nearest-neighbors model to fill in missing data; I used this for the age column, which was missing around 50 values, I then created buckets for age to create room for error in this process. I did not use the race variable for this imputation as that would create endogeneity in the models
+- impute_na() uses a simple k-nearest-neighbors model to fill in missing data; I used this for the age column, which was missing around 50 values (~1.4% of the observations after we subset to White/Black only). I then created buckets for age to create room for error in this process. I did not use the race variable for this imputation as that would create endogeneity in the models
 - dummy_regex() will create a dummy variable based on if a word is included in a column
 
 This is how the custom dataframe class was applied to the dataset:
@@ -191,9 +184,10 @@ y = data_processed.loc[:,data_processed.columns=='race:B']
 X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=20)
 ```
 
-### Logistic Model
+To finish the cleaning process, I created seasonal variables (whether the killing occcured in winter, summer, or fall); whether the suspect was fleeing, not fleeing, or if it was undetermined; and whether the suspect was armed with a gun, unarmed or armed with a different weapon.
 
-The logistic model offers estimated coefficient interpretations. The interpretation of each coefficient's magnitude, which is an odd-ratio, is its exponentiation minus 1. The direction of the magnitude is the same as its estimated sign, so positive coefficients are indicative of a phenomenon that is more likely to result in a black individual being killed, negative means it's more likely for it to be a white individual. All p-values less than 0.05 can be considered statistically significant with 95% certainty.
+### Logistic Model
+The logistic model offers estimated coefficient interpretations. The interpretation of each coefficient's magnitude, which is an odds ratio, can be calculated as its exponentiation minus 1. The direction of the magnitude is the same as its estimated sign, so positive coefficients are indicative of a phenomenon that is more likely to result in a black individual being killed, negative means it's more likely for it to be a white individual. All p-values less than 0.05 can be considered statistically significant at the 95% confidence level.  
 
 ```
 Optimization terminated successfully.
@@ -243,7 +237,7 @@ As suspected, none of the seasonal variables are statistically significant at an
 - adult
 - state:almost_all_white
 
-The last time I ran this exercise with a smaller dataset, I used slightly different model inputs, and the significant inputs were:
+The last time I ran this exercise with a smaller dataset, I used slightly different model inputs, and the significant variables were:
 - The white percentage in the given state of the shootings
 - The age of the suspect
 - Whether the suspect displayed signs of mental illness
@@ -253,7 +247,7 @@ The last time I ran this exercise with a smaller dataset, I used slightly differ
 
 So, almost all the same variables were evaluated as statistically significant this time. I combined the Hispanic and Black races last time I did this. This time, I was only interested in white vs. black. Further exploration of these model interpretations can be found in the [Key Findings](#key-findings) section.  
 
-The total accuracy of this model, when tested on the test split was 70%. The no-information rate was 64%. This model is slightly better than simply guessing, which to me, is better-than-expected considering these aren't the best inputs, nor is this the easiest question to answer.
+The total accuracy of this model, when tested on the test split was 70%. The no-information rate was 64%. This model is slightly better than simply guessing, which to me, can be considered a success since these inputs aren't all inclusive into poential factors that affect the outcome, nor is this an easy question to answer by any measure.
 
 ```
 No Information Rate: 0.64
@@ -261,7 +255,7 @@ Model Total Accruacy: 0.70
 ```
 
 ### Random Forest Model
-A Random Forest model can be influenced by its hyperparameters much more than a Logistic Model. I chose to use 3-fold cross-validation, on the training set only, to tune the RF model (my unique code, except the expand_grid function which I obtained from [Stack Overflow](https://stackoverflow.com/questions/12130883/r-expand-grid-function-in-python)):
+Unlike a Logistic Model, a Random Forest model can have many different hyperparemeter values to test. With a Logistic Regression, you can tune the cutoff level to round the predict outcome on and you can test the number of inputs to include the model. I chose not to tune the Logistic Regression as preliminary attempts to do this indicated to me that there was no way to significantly improve the base model. However, with the Random Forest, I chose to use 3-fold cross-validation to tune five different hyperparameters (my unique code, except the expand_grid function which I obtained from [Stack Overflow](https://stackoverflow.com/questions/12130883/r-expand-grid-function-in-python)):
 ``` Python
 # Random Forest Classifier
 hyper_params = {
@@ -321,13 +315,13 @@ The optimal hyperparameters were returned:
 |---|---|---|---|---|---|---|---|---|
 |10|1000|6|sqrt|0.5|0.330472|0.321888|0.332618|0.328326|
 
-The accuracy of the model on the test dataset was also greater than the no-information rate, but worse than the Logistic Model
+The accuracy of the model on the test dataset was also greater than the no-information rate, but worse than the Logistic Model:
 ```
 No information rate: 0.64
 Total accuracy of model: 0.68
 ```
 
-Without hyper-parameter tuning and using the default parameters from the RandomForestClassifier from sklearn, the total accuracy is 0.65.
+Without hyper-parameter tuning and using the default parameters from the RandomForestClassifier from sklearn, the total accuracy was 0.65.
 
 ### Visualize Results
 The ROC Curve from the Logistic Model is bumpy, but the curve expands out from y=x, another metric of our model's adequate efficiency in making predictions:
@@ -346,10 +340,12 @@ This is easier to see with a smaller-tree subset.
 
 ![](https://github.com/mikekeith52/Police-shootings-insights_updated/blob/master/img/small_tree.png)
 
+All code to produce these visualizations included in predict_shootings.ipynb.
+
 ## Key Findings
 
 ### Race in States
-One of my key findings the first time I completed this analysis (9/12/2018) was that as "the percentage of non-white people increases per state, the proportion of blacks, Hispanics, Native Americans, and 'other race' killed by police increases almost exactly proportionally." One of the most jarring tables from this analysis was the one below:
+One of my key findings the first time I completed this analysis (9/12/2018) was that as "the percentage of non-white people increases per state, the proportion of blacks, Hispanics, Native Americans, and 'other race' killed by police increases almost exactly proportionally" all else held constant. This was dervived from the interpretation of an applied Logistic Regression model. I also displayed this table:
 
 |Race|Number times in dataset|Percent of Total in Data|Natl Avg|Ratio: Perc in Data to Natl Avg|
 |---|---|---|---|---|
@@ -406,7 +402,7 @@ And the top 5 most likely to see whites killed were:
 |New Mexico|1|24|96.0%|39.7%|241.8%|
 |Hawaii|1|3|75.0%|22.8%|329.0%|
 
-Sample size can play a factor into these results (I'm not complaining!). It is interesting data nonetheless. The full dataset is available as states_ratio.csv.  
+Sample size can play a factor into these results (I'm not complaining!). It is interesting data nonetheless. The full dataset is available as states_ratio.csv. One may think this disputes my claims that all states are the same as the others when it comes to the proportion of blacks/whites killed when considering their demographic makeups. But interpretations of multivariate models can be different than a purely univariate view of the data, so the original conclusion still stands when all other factors in the data are controlled for.  
 
 ### Age of Killed Individual
 The first analysis I completed suggested that younger individuals were more likely to be black, and this is backed up in every view of the data. Particularly, black young adults (between 16 and 25) are much more likely to be killed by police.
@@ -426,6 +422,3 @@ In both rounds of analysis, the signs_of_mental_illness variable was highly indi
 In both rounds of analyses, the data suggests that officers with active body cameras are more likely to have killed a black individual, and this is a highly significant input. I've spent a little bit of time thinking about this, and I believe the most likely explanation is this is reflective of how news is consumed in America. The Washington Post documentation suggests that this variable is assigned a True value only when the active body camera is mentioned in the associated story of the police killing. It is not actually explicitly determined by whether the officer was wearing an active body camera. What this suggests to me is that in news stories about blacks being killed, the question of whether the officer was wearing a body camera is more likely to come up. These types of killings are viewed as more scandalous in our society than when a white person is killed (usually) and one of the first things we want to know, no matter what side of the political aisle we're on, is if we can see the camera to decide for ourselves whether the killing was justified or not. This makes more sense to me than the body camera coming into the decision-making of the officer to kill a black or white individual to such a large degree.  
 
 ![](https://github.com/mikekeith52/Police-shootings-insights_updated/blob/master/img/body_camera_boxplot.png)
-
-### Seasons 
-Seasons (winter vs. fall vs. spring vs. summer) appear to play a negligible role in predicting the outcome of interest in this dataset. That is not unsurprising, although it should be noted that the Random Forest model did not find these variables completely unhelpful.

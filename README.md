@@ -345,7 +345,7 @@ All code to produce these visualizations included in predict_shootings.ipynb.
 ## Key Findings
 
 ### Race in States
-One of my key findings the first time I completed this analysis (9/12/2018) was that as "the percentage of non-white people increases per state, the proportion of blacks, Hispanics, Native Americans, and 'other race' killed by police increases almost exactly proportionally" all else held constant. This was dervived from the interpretation of an applied Logistic Regression model. I also displayed this table:
+In 2018 when I completed this analysis, I was interested to know, that despite the fact that media seems to cover the killings of African Americans more, whites are actually killed more often by police. However, when you control for national averages, you can clearly see that whites are under-represented in this data and blacks are highly over-represented.
 
 |Race|Number times in dataset|Percent of Total in Data|Natl Avg|Ratio: Perc in Data to Natl Avg|
 |---|---|---|---|---|
@@ -356,7 +356,7 @@ One of my key findings the first time I completed this analysis (9/12/2018) was 
 |Other|34|1.05%|9.30%|11.29%|
 |White|1676|51.76%|72.40%|71.49%|
 
-The finding being that blacks are represented in this dataset more than twice as much as you would expect if you were looking purely at demographic information with no racial presuppositions, and whites are only represented 71% as much. In the updated dataset, this looks like the following (using the same national demographic averages from 2010):
+This view shows that the black race is represented in this dataset more than twice as much as you would expect if you were looking purely at demographic information with no racial presuppositions, and whites are only represented 71% as much. The updated view of the data is this (using the same national demographic averages from 2010):
 
 |Race|Number times in dataset|Percent of Total in Data|Natl Avg|Ratio: Perc in Data to Natl Avg|
 |---|---|---|---|---|
@@ -402,7 +402,9 @@ And the top 5 most likely to see whites killed were:
 |New Mexico|1|24|96.0%|39.7%|241.8%|
 |Hawaii|1|3|75.0%|22.8%|329.0%|
 
-Sample size can play a factor into these results (I'm not complaining!). It is interesting data nonetheless. The full dataset is available as states_ratio.csv. One may think this disputes my claims that all states are the same as the others when it comes to the proportion of blacks/whites killed when considering their demographic makeups. But interpretations of multivariate models can be different than a purely univariate view of the data, so the original conclusion still stands when all other factors in the data are controlled for.  
+Sample size can play a factor into these results (I'm not complaining!). It is interesting data nonetheless. The full dataset is available as states_ratio.csv.  
+
+One of my key findings the first time I completed this analysis (9/12/2018) was that as "the percentage of non-white people increases per state, the proportion of blacks, Hispanics, Native Americans, and 'other race' killed by police increases almost exactly proportionally" all else held constant. This was dervived from the interpretation of an applied Logistic Regression model. One may think this table disputes my claims that all states are the same as the others when it comes to the proportion of blacks/whites killed when considering their demographic makeups, as we can clearly see that states are very different in this regard. But interpretations of multivariate models can be different than a purely univariate view of the data, so the original conclusion still stands when all other factors in the data are controlled for.  
 
 ### Age of Killed Individual
 The first analysis I completed suggested that younger individuals were more likely to be black, and this is backed up in every view of the data. Particularly, black young adults (between 16 and 25) are much more likely to be killed by police.

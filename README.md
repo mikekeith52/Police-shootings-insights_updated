@@ -6,7 +6,7 @@ This is an [update](https://github.com/mikekeith52/Police-shootings-insights) of
 The key takeaways are given their own section [below](#key-findings).  
 
 ## Caveats
-The data is maintained by the [Washington Post](https://github.com/mikekeith52/data-police-shootings). The owners of this repository offer important insights and caveats about the data. Although this data isn't inclusive of all police killings over the timeframe specified (01/02/2015 to 03/19/2020), it is many times larger than the FBI database that captures the same information. Every one of the 5,174 rows in the dataset represents a death by police shooting. The following information is captured for each observation:
+The data is maintained by the [Washington Post](https://github.com/washingtonpost/data-police-shootings). The owners of this repository offer important insights and caveats about the data. Although this data isn't inclusive of all police killings over the timeframe specified (01/02/2015 to 03/19/2020), it is many times larger than the FBI database that captures the same information. Every one of the 5,174 rows in the dataset represents a death by police shooting. The following information is captured for each observation:
 
 - Name of killed individual
 - Date of occurrence

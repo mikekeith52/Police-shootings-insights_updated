@@ -174,6 +174,10 @@ for col in data_processed:
         data_processed.drop(columns=col,inplace=True)
 ```
 
+To finish the cleaning process, I created seasonal variables (whether the killing occcured in winter, summer, or fall). The final dataset looked like this:
+
+
+
 ### Split Data
 I used an 80/20 split:
 ```Python
@@ -183,8 +187,6 @@ y = data_processed.loc[:,data_processed.columns=='race:B']
 
 X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=20)
 ```
-
-To finish the cleaning process, I created seasonal variables (whether the killing occcured in winter, summer, or fall); whether the suspect was fleeing, not fleeing, or if it was undetermined; and whether the suspect was armed with a gun, unarmed or armed with a different weapon.
 
 ### Logistic Model
 The logistic model offers estimated coefficient interpretations. The interpretation of each coefficient's magnitude, which is an odds ratio, can be calculated as its exponentiation minus 1. The direction of the magnitude is the same as its estimated sign, so positive coefficients are indicative of a phenomenon that is more likely to result in a black individual being killed, negative means it's more likely for it to be a white individual. All p-values less than 0.05 can be considered statistically significant at the 95% confidence level.  

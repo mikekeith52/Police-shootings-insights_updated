@@ -345,7 +345,7 @@ All code to produce these visualizations included in predict_shootings.ipynb.
 ## Key Findings
 
 ### Race in States
-In 2018 when I completed this analysis, I was interested to know, that despite the fact that media seems to cover the killings of African Americans more, whites are actually killed more often by police. However, when you control for national averages, you can clearly see that whites are under-represented in this data and blacks are highly over-represented.
+In 2018 when I completed this analysis, I was interested to know that despite the fact that media seems to cover the killings of African Americans more, whites are actually killed more often by police. However, when you control for national averages, you can clearly see that whites are under-represented in this data and blacks are highly over-represented.
 
 |Race|Number times in dataset|Percent of Total in Data|Natl Avg|Ratio: Perc in Data to Natl Avg|
 |---|---|---|---|---|
@@ -356,7 +356,7 @@ In 2018 when I completed this analysis, I was interested to know, that despite t
 |Other|34|1.05%|9.30%|11.29%|
 |White|1676|51.76%|72.40%|71.49%|
 
-This view shows that the black race is represented in this dataset more than twice as much as you would expect if you were looking purely at demographic information with no racial presuppositions, and whites are only represented 71% as much. The updated view of the data is this (using the same national demographic averages from 2010):
+The black race is represented in this dataset more than twice as much as you would expect if she were looking purely at demographic information with no racial presuppositions, and whites are only represented 71% as much. Through March of 2020, this table looks like this (using the same national demographic averages as before):
 
 |Race|Number times in dataset|Percent of Total in Data|Natl Avg|Ratio: Perc in Data to Natl Avg|
 |---|---|---|---|---|

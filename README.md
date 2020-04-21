@@ -21,7 +21,9 @@ The data is maintained by the [Washington Post](https://github.com/washingtonpos
 
 This dataset is not an indication of all police altercations, and therefore, some interesting questions cannot be answered with it. Maybe we would like to determine if a given police altercation leads to death, whether race plays a part in being able to predict that outcome. The answer to that question is not available in this dataset.  
 
-In addition to the measures listed above, I added the demographic information from a Wikipedia article to determine the percent of white individuals in the state of every given observation, according to 2012 estimates (last time I used 2000 estimates and argued why I didn't think that would be a problem). I also added seasons - winter, fall, and summer (where spring is omitted) to see if that made any difference; I didn't think it would.  
+In addition to the measures listed above, I added the demographic information from a Wikipedia article to determine the percent of white individuals in the state of every given observation, according to 2012 estimates (last time I used 2000 estimates and argued why I didn't think that would be a problem).  
+
+In the end, the models I wrote are not extremely accurate, and more time could be taken in the model specification and feature engineering sections of the project to see if the models could be improved--maybe I will still do that. It is possible that the the features included in this dataset won't ever return favorable predictions. That being said, having examined this dataset myself and consulted outside researched, I believe in the findings presented in [Key Findings](#key-findings).
 
 ## Research Question
 Given that a police killing has occurred, can we use the factors in this dataset to determine if the individual was more likely white or black? Can we determine how the factors in the dataset move directionally with the outcome of interest?

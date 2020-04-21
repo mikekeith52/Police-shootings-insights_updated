@@ -186,7 +186,7 @@ To finish the cleaning process, I created seasonal variables (whether the killin
 |0|0|0|1|1|0|0|0|1|0|1|0|0|0|1|1|0|
 |0|1|0|0|1|0|0|0|0|1|0|1|0|0|1|1|0|
 
-There were 3,495 observations and 19 predictors to explain one depdendent variable: the race of the individual killed.  
+There were 3,495 observations and 16 predictors to explain one depdendent variable: the race of the individual killed.  
 
 ### Split Data
 I used an 80/20 split:

@@ -177,7 +177,7 @@ for col in data_processed:
 To finish the cleaning process, I created seasonal variables (whether the killing occcured in winter, summer, or fall). The final dataset looked like this:
 
 |signs_of_mental_illness|body_camera|race:B|gender:M|flee:Not fleeing|flee:Car|flee:Foot|flee:Other|threat_level:attack|threat_level:other|armed:r:gun|armed:r:unarmed|child|young adult|adult|state:almost_all_white|state:majority_white|
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 |0|0|0|1|1|0|0|0|1|0|1|0|0|0|0|1|0|
 |1|0|0|1|1|0|0|0|1|0|0|0|0|0|1|0|0|
 |0|0|0|1|1|0|0|0|1|0|1|0|0|1|0|0|1|

@@ -178,13 +178,13 @@ for col in data_processed:
 
 To finish the cleaning process, I created seasonal variables (whether the killing occcured in winter, summer, or fall). The final dataset looked like this:
 
-|signs_of_mental_illness|body_camera|summer|fall|winter|race:B|gender:M|flee:Not fleeing|flee:Car|flee:Foot|flee:Other|threat_level:attack|threat_level:other|armed:r:gun|armed:r:unarmed|child|young adult|adult|state:almost_all_white|state:majority_white|
+|signs_of_mental_illness|body_camera|race:B|gender:M|flee:Not fleeing|flee:Car|flee:Foot|flee:Other|threat_level:attack|threat_level:other|armed:r:gun|armed:r:unarmed|child|young adult|adult|state:almost_all_white|state:majority_white|
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-|0|0|0|0|1|0|1|1|0|0|0|1|0|1|0|0|0|0|1|0|
-|1|0|0|0|1|0|1|1|0|0|0|1|0|0|0|0|0|1|0|0|
-|0|0|0|0|1|0|1|1|0|0|0|1|0|1|0|0|1|0|0|1|
-|0|0|0|0|1|0|1|1|0|0|0|1|0|1|0|0|0|1|1|0|
-|0|1|0|0|1|0|0|1|0|0|0|0|1|0|1|0|0|1|1|0|
+|0|0|0|1|1|0|0|0|1|0|1|0|0|0|0|1|0|
+|1|0|0|1|1|0|0|0|1|0|0|0|0|0|1|0|0|
+|0|0|0|1|1|0|0|0|1|0|1|0|0|1|0|0|1|
+|0|0|0|1|1|0|0|0|1|0|1|0|0|0|1|1|0|
+|0|1|0|0|1|0|0|0|0|1|0|1|0|0|1|1|0|
 
 There were 3,495 observations and 19 predictors to explain one depdendent variable: the race of the individual killed.  
 
@@ -203,41 +203,38 @@ The logistic model offers estimated coefficient interpretations. The interpretat
 
 ```
 Optimization terminated successfully.
-         Current function value: 0.586120
+         Current function value: 0.586618
          Iterations 6
                             Results: Logit
 =======================================================================
 Model:                Logit              Pseudo R-squared:   0.088     
-Dependent Variable:   race:B             AIC:                3317.5804 
-Date:                 2020-04-15 12:55   BIC:                3436.2993 
-No. Observations:     2796               Log-Likelihood:     -1638.8   
-Df Model:             19                 LL-Null:            -1797.8   
-Df Residuals:         2776               LLR p-value:        3.9079e-56
+Dependent Variable:   race:B             AIC:                3314.3656 
+Date:                 2020-04-21 12:08   BIC:                3415.2766 
+No. Observations:     2796               Log-Likelihood:     -1640.2   
+Df Model:             16                 LL-Null:            -1797.8   
+Df Residuals:         2779               LLR p-value:        1.7292e-57
 Converged:            1.0000             Scale:              1.0000    
 No. Iterations:       6.0000                                           
 -----------------------------------------------------------------------
                          Coef.  Std.Err.    z    P>|z|   [0.025  0.975]
 -----------------------------------------------------------------------
-signs_of_mental_illness -0.7156   0.1110 -6.4453 0.0000 -0.9332 -0.4980
-body_camera              0.5833   0.1282  4.5489 0.0000  0.3320  0.8346
-summer                   0.0631   0.1201  0.5251 0.5995 -0.1723  0.2984
-fall                    -0.0373   0.1237 -0.3011 0.7634 -0.2798  0.2053
-winter                   0.1481   0.1180  1.2554 0.2093 -0.0831  0.3793
-gender:M                 0.2779   0.2153  1.2908 0.1968 -0.1440  0.6998
-flee:Not fleeing        -0.1138   0.2255 -0.5047 0.6138 -0.5557  0.3281
-flee:Car                -0.1194   0.2412 -0.4949 0.6206 -0.5922  0.3534
-flee:Foot                0.3971   0.2450  1.6209 0.1050 -0.0831  0.8773
-flee:Other              -0.5120   0.3286 -1.5582 0.1192 -1.1559  0.1320
-threat_level:attack     -0.0327   0.2156 -0.1514 0.8796 -0.4553  0.3900
-threat_level:other      -0.1343   0.2193 -0.6126 0.5401 -0.5641  0.2955
-armed:r:gun              0.0780   0.0993  0.7855 0.4321 -0.1166  0.2727
-armed:r:unarmed          0.2198   0.1754  1.2533 0.2101 -0.1240  0.5636
-child                    1.3955   0.6588  2.1182 0.0342  0.1043  2.6868
-young adult              1.5771   0.1349 11.6878 0.0000  1.3126  1.8415
-adult                    0.8610   0.1155  7.4532 0.0000  0.6346  1.0874
-state:almost_all_white  -0.4263   0.1286 -3.3143 0.0009 -0.6785 -0.1742
-state:majority_white     0.0741   0.1139  0.6503 0.5155 -0.1491  0.2972
-intercept               -1.5889   0.3733 -4.2564 0.0000 -2.3206 -0.8573
+signs_of_mental_illness -0.7134   0.1109 -6.4317 0.0000 -0.9308 -0.4960
+body_camera              0.5758   0.1280  4.4982 0.0000  0.3249  0.8268
+gender:M                 0.2792   0.2150  1.2988 0.1940 -0.1421  0.7006
+flee:Not fleeing        -0.1273   0.2252 -0.5653 0.5719 -0.5687  0.3141
+flee:Car                -0.1272   0.2411 -0.5276 0.5978 -0.5997  0.3453
+flee:Foot                0.3898   0.2449  1.5917 0.1114 -0.0902  0.8699
+flee:Other              -0.5281   0.3279 -1.6107 0.1072 -1.1708  0.1145
+threat_level:attack     -0.0241   0.2147 -0.1123 0.9106 -0.4449  0.3967
+threat_level:other      -0.1208   0.2181 -0.5540 0.5796 -0.5482  0.3066
+armed:r:gun              0.0787   0.0992  0.7931 0.4277 -0.1157  0.2730
+armed:r:unarmed          0.2172   0.1754  1.2385 0.2155 -0.1265  0.5609
+child                    1.3898   0.6605  2.1041 0.0354  0.0952  2.6843
+young adult              1.5775   0.1348 11.7050 0.0000  1.3133  1.8416
+adult                    0.8587   0.1154  7.4433 0.0000  0.6326  1.0848
+state:almost_all_white  -0.4268   0.1285 -3.3205 0.0009 -0.6788 -0.1749
+state:majority_white     0.0698   0.1137  0.6137 0.5394 -0.1531  0.2927
+intercept               -1.5374   0.3653 -4.2085 0.0000 -2.2535 -0.8214
 =======================================================================
 ```
 
@@ -264,6 +261,19 @@ The total accuracy of this model, when tested on the test split was 70%. The no-
 ```
 No Information Rate: 0.64
 Model Total Accruacy: 0.70
+```
+
+The precision and recall measures can be viewed as well:
+
+```
+              precision    recall  f1-score   support
+
+           0       0.71      0.90      0.79       448
+           1       0.65      0.34      0.45       251
+
+    accuracy                           0.70       699
+   macro avg       0.68      0.62      0.62       699
+weighted avg       0.69      0.70      0.67       699
 ```
 
 ### Random Forest Model
@@ -331,6 +341,19 @@ The accuracy of the model on the test dataset was also greater than the no-infor
 ```
 No information rate: 0.64
 Total accuracy of model: 0.68
+```
+
+The precision and recall measures:
+
+```
+              precision    recall  f1-score   support
+
+           0       0.70      0.88      0.78       448
+           1       0.61      0.33      0.42       251
+
+    accuracy                           0.68       699
+   macro avg       0.65      0.60      0.60       699
+weighted avg       0.67      0.68      0.65       699
 ```
 
 Without hyper-parameter tuning and using the default parameters from the RandomForestClassifier from sklearn, the total accuracy was 0.65.
